@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestor de tareas</h1>
+    </header>
+    
+    <div class="columns">
+        <div class="column is-one-fifth" id="backlog">          
+            <h2 class="subtitle">Backlog</h2>
+            <div class="tasks" data-state="backlog"></div>
+        </div>
+
+        <div class="column is-one-fifth" id="toDo">          
+            <h2 class="subtitle">To Do</h2>
+            <div class="tasks" data-state="toDo"></div>
+        </div>
+
+        <div class="column is-one-fifth" id="inProgress">          
+            <h2 class="subtitle">In Progress</h2>
+            <div class="tasks" data-state="inProgress"></div>
+        </div>
+
+        <div class="column is-one-fifth" id="blocked">          
+            <h2 class="subtitle">Blocked</h2>
+            <div class="tasks" data-state="blocked"></div>
+        </div>
+
+        <div class="column is-one-fifth" id="done">          
+            <h2 class="subtitle">Done</h2>
+            <div class="tasks" data-state="done"></div>
+        </div>
+    </div>
+
+    <!-- Botón para añadir tarea -->
+    <div class="add-task-container">
+        <button class="submit-button">+ Add Task</button>
+    </div>
+
+   <!-- Modal para añadir tarea -->
+   <div class="modal" id="addTaskModal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <form class="task-form" id="addTaskForm">
+                <div class="field">
+                    <label class="label" for="title">Título:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="title" name="title" placeholder="Título" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="description">Descripción:</label>
+                    <div class="control">
+                        <textarea class="textarea" id="description" name="description" placeholder="Descripción"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="assigned">Asignado:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="assigned" name="assigned" placeholder="Asignado a" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="priority">Prioridad:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="priority" name="priority">
+                                <option value="low">Baja</option>
+                                <option value="medium">Media</option>
+                                <option value="high">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="status">Estado:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="status" name="status">
+                                <option value="backlog">Backlog</option>
+                                <option value="toDo">To Do</option>
+                                <option value="inProgress">In Progress</option>
+                                <option value="blocked">Blocked</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="fecha-limite">Fecha límite:</label>
+                    <div class="control">
+                        <input class="input" type="date" id="fecha-limite" name="fecha-limite" required>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Añadir</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-light cancel-button" type="button">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<!-- Modal para editar tarea -->
+<div class="modal" id="editTaskModal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <form class="task-form" id="editTaskForm">
+                <div class="field">
+                    <label class="label" for="title">Título:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="edit-title" name="title" placeholder="Título" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="description">Descripción:</label>
+                    <div class="control">
+                        <textarea class="textarea" id="edit-description" name="description" placeholder="Descripción"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="assigned">Asignado:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="edit-assigned" name="assigned" placeholder="Asignado a" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="priority">Prioridad:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="edit-priority" name="priority">
+                                <option value="low">Baja</option>
+                                <option value="medium">Media</option>
+                                <option value="high">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="status">Estado:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="edit-status" name="status">
+                                <option value="backlog">Backlog</option>
+                                <option value="toDo">To Do</option>
+                                <option value="inProgress">In Progress</option>
+                                <option value="blocked">Blocked</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="fecha-limite">Fecha límite:</label>
+                    <div class="control">
+                        <input class="input" type="date" id="edit-fecha-limite" name="fecha-limite" required>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Editar</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-light cancel-button" type="button">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
